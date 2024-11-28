@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react'
 import { HealthEntry } from '@/types/health'
 
+let count = 0
+
+function generateUniqueId() {
+  count = (count + 1) % Number.MAX_VALUE
+  return `${Date.now()}-${count}`
+}
+
 export function useHealthStore() {
   const [entries, setEntries] = useState<HealthEntry[]>([])
 
@@ -15,10 +22,10 @@ export function useHealthStore() {
 
   const addEntry = (entry: Partial<HealthEntry>) => {
     const newEntry = {
-      id: Date.now().toString(),
-      date: new Date().toISOString(),
       ...entries[0], // Get the latest entry as a base
-      ...entry // Override with new data
+      ...entry, // Override with new data
+      id: generateUniqueId(), // Ensure these are always set
+      date: new Date().toISOString(), // and not overwritten
     }
     const newEntries = [newEntry, ...entries]
     setEntries(newEntries)

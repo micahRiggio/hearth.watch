@@ -5,7 +5,7 @@ import { Star } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { useHealthStore } from '@/hooks/use-health-store'
 import { HealthMetric } from '@/types/health'
-import { useToast } from '@/components/ui/use-toast'
+import { useToast } from '@/hooks/use-toast'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 

@@ -2,7 +2,8 @@ import { Inter } from 'next/font/google'
 import { History, Plus, User } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { Toaster } from "@/components/ui/toast"
+import { Toaster } from "@/components/ui/toaster"
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,14 +18,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="container max-w-md mx-auto">
             <div className="flex justify-between items-center p-2">
               <Link 
-                href="/"
+                href="/history"
                 className="flex flex-col items-center p-2 text-[#8F6566] hover:text-[#35566B]"
               >
                 <History className="h-6 w-6" />
                 <span className="text-xs">History</span>
               </Link>
               <Link 
-                href="/add"
+                href="/"
                 className="flex flex-col items-center p-2 text-[#35566B] hover:text-[#35566B]"
               >
                 <div className="rounded-full bg-[#35566B] text-white p-4 -mt-8">
