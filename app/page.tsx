@@ -78,7 +78,8 @@ export default function HomePage() {
   }, [currentValues])
 
   const saveEntry = (field: string, value: string | number | boolean) => {
-    let entry: Record<string, any> = {}
+    type EntryValue = number | boolean | { systolic: number; diastolic: number }
+    const entry: Partial<Record<string, EntryValue>> = {}
     
     // Only proceed if there's a valid value
     if (typeof value === 'string' && value.trim() === '') {
@@ -113,14 +114,17 @@ export default function HomePage() {
     if (typeof value === 'string') {
       const numValue = parseFloat(value)
       if (isNaN(numValue)) return
-      entry[field] = numValue
-    } else if (field === 'systolic' || field === 'diastolic') {
-      if (typeof value !== 'string') return
-      const numValue = parseInt(value)
-      if (isNaN(numValue)) return
-      entry['bloodPressure'] = { [field]: numValue }
+      if (field === 'systolic' || field === 'diastolic') {
+        const currentBP = currentValues.bloodPressure || { systolic: 0, diastolic: 0 }
+        entry.bloodPressure = {
+          ...currentBP,
+          [field]: numValue
+        }
+      } else {
+        entry[field] = numValue
+      }
     } else {
-      entry[field] = value
+      entry[field] = value as EntryValue
     }
 
     const savedEntry = addEntry(entry)

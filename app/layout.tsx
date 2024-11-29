@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { History, Plus, User } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { Viewport } from 'next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,18 +12,34 @@ export const metadata = {
   title: 'Hearth Watch',
   description: 'Track your health metrics and symptoms',
   manifest: '/manifest.json',
-  themeColor: '#000000',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
-    title: 'Hearth Watch'
+    statusBarStyle: 'black-translucent',
+    title: 'Hearth Watch',
+    startupImage: [
+      {
+        url: '/apple-touch-icon.png',
+        media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)',
+      }
+    ]
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false
+  icons: {
+    icon: [
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' }
+    ],
+    shortcut: '/icon-192.png',
+    apple: '/apple-touch-icon.png',
   }
+}
+
+export const viewport: Viewport = {
+  themeColor: '#000000',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover'
 }
 
 export default function RootLayout({
@@ -33,10 +50,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon-192.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/icon-192.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-startup-image" href="/apple-touch-icon.png" />
+        <link rel="shortcut icon" href="/icon-192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="theme-color" content="#000000" />
       </head>
       <body className={cn(inter.className, "bg-background min-h-screen dark:bg-gray-900 dark:text-white")}>
         <main className="container max-w-md mx-auto pb-16">
